@@ -16,27 +16,27 @@
         android:textAlignment="center"/>
 
     <EditText
-        android:id="@+id/email_reg"
+        android:id="@+id/email_log"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
         android:inputType="textEmailAddress"/>
 
     <EditText
-        android:id="@+id/password_reg"
+        android:id="@+id/password_log"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Hasło"
         android:inputType="textPassword"/>
 
     <Button
-        android:id="@+id/signInBtn"
+        android:id="@+id/signUpBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="REJESTRACJA"/>
 
     <TextView
-        android:id="@+id/tv_register_btn"
+        android:id="@+id/tv_login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Masz już konto? Zaloguj się tutaj!"
