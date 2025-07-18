@@ -11,14 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PostsActivity extends AppCompatActivity
 {
     RecyclerView recyclerView;
-    List<Fruit> owoce = new ArrayList<>();
+    List<Post> posts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,12 +31,12 @@ public class PostsActivity extends AppCompatActivity
             return insets;
         });
 
-        owoce.add(new Fruit("Banan", "Zółty owoc co ma dużo potasu"));
-        owoce.add(new Fruit("Jablko", "Czerwony owoc słodki w smaku"));
-        owoce.add(new Fruit("Pomarancza", "Pomaranczowy owoc popularny w wigilie"));
+        posts.add(new Post(1, 1, "post", "opis"));
+        posts.add(new Post(1, 2, "postlol", "opislol"));
+        posts.add(new Post(1, 3, "postxD", "opisxD"));
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(new FruitAdapter(owoce));
+        recyclerView.setAdapter(new PostsAdapter(posts));
     }
 }
