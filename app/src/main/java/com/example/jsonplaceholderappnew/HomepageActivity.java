@@ -20,6 +20,7 @@ public class HomepageActivity extends AppCompatActivity
 {
     TextView greeting;
     Button logout;
+    Button posts;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
@@ -36,7 +37,17 @@ public class HomepageActivity extends AppCompatActivity
         });
 
         greeting = findViewById(R.id.greeting);
+        posts = findViewById(R.id.btn_posts);
         logout = findViewById(R.id.btn_logout);
+
+        posts.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(new Intent(getApplicationContext(), PostsActivity.class));
+            }
+        });
 
         logout.setOnClickListener(new View.OnClickListener()
         {
