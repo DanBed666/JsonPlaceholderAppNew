@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,7 @@ public class PostsActivity extends AppCompatActivity
 {
     RecyclerView recyclerView;
     List<Post> posts = new ArrayList<>();
+    PostsViewModel postsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,12 +33,22 @@ public class PostsActivity extends AppCompatActivity
             return insets;
         });
 
-        posts.add(new Post(1, 1, "post", "opis"));
-        posts.add(new Post(1, 2, "postlol", "opislol"));
-        posts.add(new Post(1, 3, "postxD", "opisxD"));
+        postsViewModel = new PostsViewModel(posts);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(new PostsAdapter(posts));
+        getPostsList();
+    }
+
+    public void getPostsList()
+    {
+        postsViewModel.getPostsList().observeForever(new Observer<List<Post>>()
+        {
+            @Override
+            public void onChanged(List<Post> posts)
+            {
+                recyclerView.setAdapter(new PostsAdapter(posts));
+            }
+        });
     }
 }
