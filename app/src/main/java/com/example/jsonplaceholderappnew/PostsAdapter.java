@@ -1,9 +1,14 @@
 package com.example.jsonplaceholderappnew;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,10 +19,12 @@ import java.util.List;
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHolder>
 {
     List<Post> posts = new ArrayList<>();
+    Context context;
 
-    public PostsAdapter(List<Post> posts)
+    public PostsAdapter(List<Post> posts, Context c)
     {
         this.posts = posts;
+        context = c;
     }
 
     @NonNull
@@ -29,10 +36,20 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostsAdapter.PostsViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull PostsAdapter.PostsViewHolder holder, @SuppressLint("RecyclerView") int position)
     {
         holder.title.setText(posts.get(position).getTitle());
         holder.body.setText(posts.get(position).getBody());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                context.startActivity(new Intent(context, CommentsActivity.class));
+                Log.i("IDPOSTA", String.format("Numer posta to %d", posts.get(position).getId()));
+            }
+        });
     }
 
     @Override
