@@ -1,5 +1,6 @@
 package com.example.jsonplaceholderappnew;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     @Override
     public CommentsAdapter.CommentsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
+        Log.i("TAG", "ADAPTER1");
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.one_comment, parent, false);
         return new CommentsViewHolder(v);
     }
@@ -33,11 +35,16 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         holder.email.setText(commentList.get(position).getEmail());
         holder.title.setText(commentList.get(position).getName());
         holder.body.setText(commentList.get(position).getBody());
+
+        Log.i("EMAIL", commentList.get(position).getEmail());
+        Log.i("NAME", commentList.get(position).getName());
+        Log.i("BODY", commentList.get(position).getBody());
     }
 
     @Override
     public int getItemCount()
     {
+        Log.i("TAG", String.valueOf(commentList.size()));
         return commentList.size();
     }
 

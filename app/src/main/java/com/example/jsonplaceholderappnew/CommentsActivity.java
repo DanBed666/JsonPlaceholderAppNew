@@ -1,6 +1,7 @@
 package com.example.jsonplaceholderappnew;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,7 @@ public class CommentsActivity extends AppCompatActivity
         recyclerView = findViewById(R.id.recyclerView);
         postId = getIntent().getIntExtra("ID_POSTA", 0);
 
+        Log.i("POSTIDACTIVITY", String.valueOf(postId));
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         getCommentsList(postId);
     }
@@ -49,7 +51,7 @@ public class CommentsActivity extends AppCompatActivity
             @Override
             public void onChanged(List<Comment> comments)
             {
-                recyclerView.setAdapter(new CommentsAdapter(commentList));
+                recyclerView.setAdapter(new CommentsAdapter(comments));
             }
         });
     }

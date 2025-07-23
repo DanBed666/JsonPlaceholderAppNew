@@ -31,7 +31,7 @@ public class CommentsRepository
             {
                 commentList = response.body();
                 mutableLiveData.setValue(commentList);
-                Log.i("INFO", "Pozyskano dane z repository");
+                Log.i("INFO", "Pozyskano dane z repository comments");
             }
 
             @Override
