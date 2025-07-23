@@ -47,6 +47,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
             public void onClick(View view)
             {
                 Intent i = new Intent(context, CommentsActivity.class);
+                i.putExtra("ID_POSTA", posts.get(position).getId());
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
                 Log.i("IDPOSTA", String.format("Numer posta to %d", posts.get(position).getId()));
