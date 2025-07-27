@@ -1,6 +1,7 @@
 package com.example.jsonplaceholderappnew;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,9 @@ import androidx.lifecycle.Observer;
 public class UserActivity extends AppCompatActivity
 {
     UserViewModel userViewModel;
+    TextView email;
+    TextView name;
+    TextView username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -27,6 +31,9 @@ public class UserActivity extends AppCompatActivity
         });
 
         userViewModel = new UserViewModel();
+        email = findViewById(R.id.email);
+        name = findViewById(R.id.name);
+        username = findViewById(R.id.username);
     }
 
     public void getUser(int userId)

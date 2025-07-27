@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
 {
     List<Post> posts = new ArrayList<>();
     Context context;
+    UserViewModel userViewModel;
 
     public PostsAdapter(List<Post> posts, Context c)
     {
@@ -38,6 +40,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
     @Override
     public void onBindViewHolder(@NonNull PostsAdapter.PostsViewHolder holder, @SuppressLint("RecyclerView") int position)
     {
+        getUser(posts.get(position).getUserId(), holder.user);
         holder.title.setText(posts.get(position).getTitle());
         holder.body.setText(posts.get(position).getBody());
 
@@ -61,13 +64,29 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
         return posts.size();
     }
 
+    public void getUser(int userId, TextView userTv)
+    {
+        userViewModel = new UserViewModel();
+
+        userViewModel.getUser(userId).observeForever(new Observer<User>()
+        {
+            @Override
+            public void onChanged(User user)
+            {
+                userTv.setText(user.getUsername());
+            }
+        });
+    }
+
     public static class PostsViewHolder extends RecyclerView.ViewHolder
     {
+        TextView user;
         TextView title;
         TextView body;
         public PostsViewHolder(@NonNull View itemView)
         {
             super(itemView);
+            user = itemView.findViewById(R.id.user);
             title = itemView.findViewById(R.id.title);
             body = itemView.findViewById(R.id.body);
         }

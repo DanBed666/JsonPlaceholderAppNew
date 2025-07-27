@@ -39,7 +39,6 @@ public class PostsActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         getPostsList();
     }
-
     public void getPostsList()
     {
         postsViewModel.getPostsList().observeForever(new Observer<List<Post>>()
