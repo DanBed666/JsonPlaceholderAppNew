@@ -14,4 +14,7 @@ public interface PostsService
 
     @GET("posts/{postId}/comments")
     Call<List<Comment>> getCommentsList(@Path("postId") int postId);
+
+    @GET("users/{userId}")
+    Call<User> getUser(@Path("userId") int userId);
 }
