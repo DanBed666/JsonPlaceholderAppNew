@@ -16,6 +16,7 @@ public class UserActivity extends AppCompatActivity
     TextView email;
     TextView name;
     TextView username;
+    int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,6 +35,9 @@ public class UserActivity extends AppCompatActivity
         email = findViewById(R.id.email);
         name = findViewById(R.id.name);
         username = findViewById(R.id.username);
+
+        userId = getIntent().getIntExtra("ID_USERA", 0);
+        getUser(userId);
     }
 
     public void getUser(int userId)
@@ -43,7 +47,9 @@ public class UserActivity extends AppCompatActivity
             @Override
             public void onChanged(User user)
             {
-
+                email.setText(user.getEmail());
+                name.setText(user.getName());
+                username.setText(user.getUsername());
             }
         });
     }

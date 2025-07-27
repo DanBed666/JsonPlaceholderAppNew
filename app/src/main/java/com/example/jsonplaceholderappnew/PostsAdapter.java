@@ -56,6 +56,18 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
                 Log.i("IDPOSTA", String.format("Numer posta to %d", posts.get(position).getId()));
             }
         });
+
+        holder.user.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent i = new Intent(context, UserActivity.class);
+                i.putExtra("ID_USERA", posts.get(position).getUserId());
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override
