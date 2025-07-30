@@ -22,6 +22,7 @@ public class HomepageActivity extends AppCompatActivity
     Button logout;
     Button posts;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    Button albums;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,6 +40,7 @@ public class HomepageActivity extends AppCompatActivity
         greeting = findViewById(R.id.greeting);
         posts = findViewById(R.id.btn_posts);
         logout = findViewById(R.id.btn_logout);
+        albums = findViewById(R.id.btn_albums);
 
         posts.setOnClickListener(new View.OnClickListener()
         {
@@ -46,6 +48,15 @@ public class HomepageActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 startActivity(new Intent(getApplicationContext(), PostsActivity.class));
+            }
+        });
+
+        albums.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(new Intent(getApplicationContext(), AlbumsActivity.class));
             }
         });
 
