@@ -17,4 +17,10 @@ public interface PostsService
 
     @GET("users/{userId}")
     Call<User> getUser(@Path("userId") int userId);
+
+    @GET("albums")
+    Call<List<Album>> getAlbumsList();
+
+    @GET("photos")
+    Call<List<Photo>> getPhotosList();
 }
