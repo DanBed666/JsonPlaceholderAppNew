@@ -99,8 +99,9 @@ public class RegisterActivity extends AppCompatActivity
     {
         if (user != null)
         {
-            Toast.makeText(this,"You Signed Up successfully",Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, LoginActivity.class));
+            user.sendEmailVerification();
+            Toast.makeText(this,"Aby zakończyć rejestrację, potwierdź swój adres email",Toast.LENGTH_LONG).show();
         }
         else
         {
