@@ -39,10 +39,22 @@
         android:id="@+id/tv_register_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Nie masz konta? Załóż je tutaj!"
         android:textSize="18dp"
         android:textStyle="bold"
         android:textColor="#FF0000"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/tv_password_change_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Nie pamiętasz hasła?"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="#0000FF"
         android:textAlignment="center"/>
 
 </LinearLayout>

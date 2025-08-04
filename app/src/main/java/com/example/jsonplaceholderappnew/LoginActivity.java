@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity
     Button login;
     TextView register;
     private FirebaseAuth mAuth;
+    Button forgetPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class LoginActivity extends AppCompatActivity
         login = findViewById(R.id.signInBtn);
         register = findViewById(R.id.tv_register_btn);
         mAuth = FirebaseAuth.getInstance();
+        forgetPassword = findViewById(R.id.tv_password_change_btn);
 
         login.setOnClickListener(new View.OnClickListener()
         {
@@ -64,6 +66,15 @@ public class LoginActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+            }
+        });
+
+        forgetPassword.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+
             }
         });
     }
