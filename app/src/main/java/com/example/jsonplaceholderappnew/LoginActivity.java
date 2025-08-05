@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity
     Button login;
     TextView register;
     private FirebaseAuth mAuth;
-    Button forgetPassword;
+    TextView forgetPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +113,11 @@ public class LoginActivity extends AppCompatActivity
             {
                 Toast.makeText(this, "You Signed In successfully", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(this, HomepageActivity.class));
+            }
+            else
+            {
+                Toast.makeText(this, "Prosze potwierdzić adres email", Toast.LENGTH_LONG).show();
+                mAuth.signOut();
             }
         }
         else
