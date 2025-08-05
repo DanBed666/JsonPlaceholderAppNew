@@ -112,6 +112,7 @@ public class LoginActivity extends AppCompatActivity
             if (user.isEmailVerified())
             {
                 Toast.makeText(this, "You Signed In successfully", Toast.LENGTH_LONG).show();
+                finish();
                 startActivity(new Intent(this, HomepageActivity.class));
             }
             else
