@@ -57,4 +57,9 @@
         android:textColor="#0000FF"
         android:textAlignment="center"/>
 
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="410dp"
+        android:layout_height="200dp"/>
+
 </LinearLayout>

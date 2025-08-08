@@ -2,13 +2,22 @@ package com.example.jsonplaceholderappnew;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,6 +78,44 @@ public class PasswordResetFragment extends Fragment {
         email = v.findViewById(R.id.email);
         cancel = v.findViewById(R.id.cancel);
         restore = v.findViewById(R.id.restore);
+
+        cancel.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                FragmentMngr fragmentMngr = new FragmentMngr(requireActivity().getSupportFragmentManager());
+                fragmentMngr.removeFragment();
+            }
+        });
+
+        restore.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                String e = email.getText().toString();
+
+                mAuth.sendPasswordResetEmail(e).addOnCompleteListener(new OnCompleteListener<Void>()
+                {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task)
+                    {
+                        if (task.isSuccessful())
+                        {
+                            Log.i("PASSRESET", "working");
+                            Toast.makeText(requireActivity().getApplicationContext(), "Wysłano link resetujący na hasło na podany email", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Log.e("PASSRESET", "passwordReset:failure", task.getException());
+                            Toast.makeText(requireActivity().getApplicationContext(), "FAIL", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
 
         return v;
     }

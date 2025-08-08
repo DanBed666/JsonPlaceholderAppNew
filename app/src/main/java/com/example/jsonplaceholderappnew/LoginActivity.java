@@ -74,7 +74,11 @@ public class LoginActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                PasswordResetFragment passwordResetFragment = new PasswordResetFragment();
 
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.frame_layout, passwordResetFragment)
+                        .commit();
             }
         });
     }
