@@ -30,6 +30,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotosView
     public void onBindViewHolder(@NonNull PhotosAdapter.PhotosViewHolder holder, int position)
     {
         holder.title.setText(photos.get(position).getTitle());
+        holder.title.setText(photos.get(position).getUrl());
     }
 
     @Override
@@ -41,10 +42,12 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotosView
     public static class PhotosViewHolder extends RecyclerView.ViewHolder
     {
         TextView title;
+        TextView url;
         public PhotosViewHolder(@NonNull View itemView)
         {
             super(itemView);
             title = itemView.findViewById(R.id.title);
+            url = itemView.findViewById(R.id.url);
         }
     }
 }

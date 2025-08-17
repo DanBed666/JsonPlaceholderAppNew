@@ -34,6 +34,7 @@ public class AlbumsActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 
         albumsViewModel = new AlbumsViewModel();
+        getAlbumsList();
     }
 
     public void getAlbumsList()
@@ -43,7 +44,7 @@ public class AlbumsActivity extends AppCompatActivity
             @Override
             public void onChanged(List<Album> albums)
             {
-                recyclerView.setAdapter(new AlbumsAdapter(albums));
+                recyclerView.setAdapter(new AlbumsAdapter(albums, getApplicationContext()));
             }
         });
     }

@@ -34,6 +34,7 @@ public class PhotosActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 
         photosViewModel = new PhotosViewModel();
+        getPhotosList();
     }
 
     public void getPhotosList()
