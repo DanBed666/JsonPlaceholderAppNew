@@ -30,7 +30,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotosView
     public void onBindViewHolder(@NonNull PhotosAdapter.PhotosViewHolder holder, int position)
     {
         holder.title.setText(photos.get(position).getTitle());
-        holder.title.setText(photos.get(position).getUrl());
+        holder.url.setText(photos.get(position).getUrl());
     }
 
     @Override

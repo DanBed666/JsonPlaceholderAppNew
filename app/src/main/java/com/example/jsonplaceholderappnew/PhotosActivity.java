@@ -34,12 +34,15 @@ public class PhotosActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 
         photosViewModel = new PhotosViewModel();
-        getPhotosList();
+
+        int albumId = getIntent().getIntExtra("ID_ALBUMU", 0);
+
+        getPhotosList(albumId);
     }
 
-    public void getPhotosList()
+    public void getPhotosList(int albumId)
     {
-        photosViewModel.getAlbumsList().observeForever(new Observer<List<Photo>>()
+        photosViewModel.getAlbumsList(albumId).observeForever(new Observer<List<Photo>>()
         {
             @Override
             public void onChanged(List<Photo> photos)

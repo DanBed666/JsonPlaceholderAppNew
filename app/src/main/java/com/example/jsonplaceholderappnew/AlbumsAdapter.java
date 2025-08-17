@@ -60,6 +60,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.AlbumsView
             public void onClick(View view)
             {
                 Intent i = new Intent(context, PhotosActivity.class);
+                i.putExtra("ID_ALBUMU", albums.get(position).getId());
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
             }

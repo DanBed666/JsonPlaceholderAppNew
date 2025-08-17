@@ -13,11 +13,11 @@ import retrofit2.Response;
 
 public class PhotosRepository
 {
-    public MutableLiveData<List<Photo>> getAlbumsList()
+    public MutableLiveData<List<Photo>> getPhotosList(int albumId)
     {
         MutableLiveData<List<Photo>> mutableLiveData = new MutableLiveData<>();
 
-        RetrofitBuilder.getPostsService().getPhotosList().enqueue(new Callback<List<Photo>>()
+        RetrofitBuilder.getPostsService().getPhotosList(albumId).enqueue(new Callback<List<Photo>>()
         {
             @Override
             public void onResponse(Call<List<Photo>> call, Response<List<Photo>> response)

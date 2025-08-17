@@ -21,6 +21,6 @@ public interface PostsService
     @GET("albums")
     Call<List<Album>> getAlbumsList();
 
-    @GET("photos")
-    Call<List<Photo>> getPhotosList();
+    @GET("albums/{albumId}/photos")
+    Call<List<Photo>> getPhotosList(@Path("albumId") int postId);
 }
