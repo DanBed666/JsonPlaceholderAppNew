@@ -41,5 +41,6 @@ dependencies {
     androidTestImplementation libs.espresso.core
     implementation libs.retrofit.v300
     implementation libs.squareup.converter.gson
+    implementation libs.picasso
 
 }

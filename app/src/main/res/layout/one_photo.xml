@@ -11,11 +11,9 @@
         android:textSize="26dp"
         android:text="tytul"/>
 
-    <TextView
-        android:id="@+id/url"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="26dp"
-        android:text="tytul"/>
+    <ImageView
+        android:id="@+id/url_iv"
+        android:layout_width="300dp"
+        android:layout_height="300dp"/>
 
 </LinearLayout>

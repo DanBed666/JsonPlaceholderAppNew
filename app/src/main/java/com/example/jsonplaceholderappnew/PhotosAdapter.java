@@ -3,10 +3,13 @@ package com.example.jsonplaceholderappnew;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -30,7 +33,8 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotosView
     public void onBindViewHolder(@NonNull PhotosAdapter.PhotosViewHolder holder, int position)
     {
         holder.title.setText(photos.get(position).getTitle());
-        holder.url.setText(photos.get(position).getUrl());
+        Picasso.get().load("https://i.imgur.com/DvpvklR.png").into(holder.url);
+        //holder.url.setText(photos.get(position).getUrl());
     }
 
     @Override
@@ -42,12 +46,12 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotosView
     public static class PhotosViewHolder extends RecyclerView.ViewHolder
     {
         TextView title;
-        TextView url;
+        ImageView url;
         public PhotosViewHolder(@NonNull View itemView)
         {
             super(itemView);
             title = itemView.findViewById(R.id.title);
-            url = itemView.findViewById(R.id.url);
+            url = itemView.findViewById(R.id.url_iv);
         }
     }
 }
