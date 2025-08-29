@@ -11,6 +11,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NewPostActivity extends AppCompatActivity
 {
     EditText title;
@@ -39,7 +42,11 @@ public class NewPostActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-
+                String t = title.getText().toString();
+                String b = body.getText().toString();
+                PostsViewModel postsViewModel = new PostsViewModel();
+                postsViewModel.createNewPost(new Post(11, 666, t, b));
+                finish();
             }
         });
     }

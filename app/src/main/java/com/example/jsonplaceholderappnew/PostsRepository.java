@@ -14,13 +14,6 @@ import retrofit2.Response;
 
 public class PostsRepository
 {
-    List<Post> postList;
-
-    public PostsRepository(List<Post> postList)
-    {
-        this.postList = postList;
-    }
-
     public MutableLiveData<List<Post>> getPostsList()
     {
         MutableLiveData<List<Post>> mutableLiveData = new MutableLiveData<>();
@@ -30,8 +23,7 @@ public class PostsRepository
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response)
             {
-                postList = response.body();
-                mutableLiveData.setValue(postList);
+                mutableLiveData.setValue(response.body());
                 Log.i("INFO", "Pozyskano dane z repository");
             }
 
@@ -43,5 +35,24 @@ public class PostsRepository
         });
 
         return mutableLiveData;
+    }
+
+    public void createNewPost(Post post)
+    {
+        RetrofitBuilder.getPostsService().createNewPost(post).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response)
+            {
+                assert response.body() != null;
+                Log.i("POSTT", String.valueOf(response.body().getTitle()));
+                Log.i("POSTB", String.valueOf(response.body().getBody()));
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t)
+            {
+                Log.e("ERROR", Objects.requireNonNull(t.getMessage()));
+            }
+        });
     }
 }

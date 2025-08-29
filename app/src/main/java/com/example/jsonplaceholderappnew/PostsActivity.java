@@ -1,5 +1,6 @@
 package com.example.jsonplaceholderappnew;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,7 +38,7 @@ public class PostsActivity extends AppCompatActivity
         });
 
         new_post = findViewById(R.id.new_post);
-        postsViewModel = new PostsViewModel(posts);
+        postsViewModel = new PostsViewModel();
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
@@ -48,7 +49,7 @@ public class PostsActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-
+                startActivity(new Intent(getApplicationContext(), NewPostActivity.class));
             }
         });
     }
