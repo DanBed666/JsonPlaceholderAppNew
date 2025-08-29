@@ -15,9 +15,17 @@
         android:textAlignment="center"
         android:textSize="28dp"/>
 
+    <Button
+        android:id="@+id/new_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="NOWY POST"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
         android:layout_height="675dp"
         android:layout_marginBottom="10dp" />
 

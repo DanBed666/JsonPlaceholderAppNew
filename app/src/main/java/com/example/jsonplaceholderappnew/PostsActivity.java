@@ -1,6 +1,8 @@
 package com.example.jsonplaceholderappnew;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +21,7 @@ public class PostsActivity extends AppCompatActivity
     RecyclerView recyclerView;
     List<Post> posts = new ArrayList<>();
     PostsViewModel postsViewModel;
+    Button new_post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,11 +36,21 @@ public class PostsActivity extends AppCompatActivity
             return insets;
         });
 
+        new_post = findViewById(R.id.new_post);
         postsViewModel = new PostsViewModel(posts);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         getPostsList();
+
+        new_post.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+
+            }
+        });
     }
     public void getPostsList()
     {
