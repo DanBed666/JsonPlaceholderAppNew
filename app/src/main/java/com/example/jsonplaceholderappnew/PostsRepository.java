@@ -26,7 +26,8 @@ import retrofit2.Response;
 
 public class PostsRepository
 {
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DatabaseManager dm = new DatabaseManager();
+
     public MutableLiveData<List<Post>> getPostsList()
     {
         MutableLiveData<List<Post>> mutableLiveData = new MutableLiveData<>();
@@ -41,10 +42,10 @@ public class PostsRepository
                 assert response.body() != null;
                 for (Post p : response.body())
                 {
-                    addToDatabase(p);
+                    dm.addItem(p);
                 }
 
-                getDataFromDb();
+                dm.getAllItems();
 
                 Log.i("INFO", "Pozyskano dane z repository");
             }
@@ -73,49 +74,6 @@ public class PostsRepository
             public void onFailure(Call<Post> call, Throwable t)
             {
                 Log.e("ERROR", Objects.requireNonNull(t.getMessage()));
-            }
-        });
-    }
-
-    public void addToDatabase(Post post)
-    {
-        db.collection("posts").document(String.valueOf(post.getId())).set(post)
-                .addOnSuccessListener(new OnSuccessListener<Void>()
-                {
-                    @Override
-                    public void onSuccess(Void unused)
-                    {
-                        Log.d("FIREBASE", "DocumentSnapshot successfully written!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener()
-                {
-                    @Override
-                    public void onFailure(@NonNull Exception e)
-                    {
-                        Log.e("FIREBASE", "Error writing document: " + e.getMessage(), e);
-                    }
-                });
-    }
-
-    public void getDataFromDb()
-    {
-        db.collection("posts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
-        {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task)
-            {
-                if (task.isSuccessful())
-                {
-                    for (QueryDocumentSnapshot document : task.getResult())
-                    {
-                        Log.d("GET", document.getId() + " => " + document.getData());
-                    }
-                }
-                else
-                {
-                    Log.d("GET", "Error getting documents: ", task.getException());
-                }
             }
         });
     }
