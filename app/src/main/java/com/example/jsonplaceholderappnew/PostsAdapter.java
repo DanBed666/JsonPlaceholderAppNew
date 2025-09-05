@@ -14,16 +14,19 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.DocumentSnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHolder>
 {
-    List<Post> posts = new ArrayList<>();
+    List<DocumentSnapshot> posts = new ArrayList<>();
     Context context;
     UserViewModel userViewModel;
 
-    public PostsAdapter(List<Post> posts, Context c)
+    public PostsAdapter(List<DocumentSnapshot> posts, Context c)
     {
         this.posts = posts;
         context = c;
@@ -40,9 +43,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
     @Override
     public void onBindViewHolder(@NonNull PostsAdapter.PostsViewHolder holder, @SuppressLint("RecyclerView") int position)
     {
-        getUser(posts.get(position).getUserId(), holder.user);
-        holder.title.setText(posts.get(position).getTitle());
-        holder.body.setText(posts.get(position).getBody());
+        getUser(Objects.requireNonNull(posts.get(position).getLong("userId")).intValue(), holder.user);
+        holder.title.setText(posts.get(position).getString("title"));
+        holder.body.setText(posts.get(position).getString("body"));
 
         holder.itemView.setOnClickListener(new View.OnClickListener()
         {
@@ -53,7 +56,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
                 i.putExtra("ID_POSTA", posts.get(position).getId());
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
-                Log.i("IDPOSTA", String.format("Numer posta to %d", posts.get(position).getId()));
+                Log.i("IDPOSTA", String.format("Numer posta to %s", posts.get(position).getId()));
             }
         });
 
@@ -63,7 +66,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
             public void onClick(View view)
             {
                 Intent i = new Intent(context, UserActivity.class);
-                i.putExtra("ID_USERA", posts.get(position).getUserId());
+                i.putExtra("ID_USERA", Objects.requireNonNull(posts.get(position).getLong("userId")).intValue());
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
             }

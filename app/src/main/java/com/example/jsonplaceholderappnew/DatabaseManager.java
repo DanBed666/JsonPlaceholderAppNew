@@ -15,6 +15,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class DatabaseManager
 {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    OnDataGetListener onDataGetListener;
     public void addItem(Post post)
     {
         db.collection("posts").document(String.valueOf(post.getId())).set(post)
@@ -36,19 +37,16 @@ public class DatabaseManager
                 });
     }
 
-    public void getAllItems()
+    public void getAllItems(String collectionName, OnDataGetListener onDataGetListener)
     {
-        db.collection("posts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
+        db.collection(collectionName).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
         {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task)
             {
                 if (task.isSuccessful())
                 {
-                    for (QueryDocumentSnapshot document : task.getResult())
-                    {
-                        Log.d("GET", document.getId() + " => " + document.getData());
-                    }
+                    onDataGetListener.setOnDataGetListener(task.getResult().getDocuments());
                 }
                 else
                 {

@@ -45,8 +45,6 @@ public class PostsRepository
                     dm.addItem(p);
                 }
 
-                dm.getAllItems();
-
                 Log.i("INFO", "Pozyskano dane z repository");
             }
 

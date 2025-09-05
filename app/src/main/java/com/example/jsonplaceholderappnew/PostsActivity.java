@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class PostsActivity extends AppCompatActivity
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        getPostsList();
+        getPostsList8();
 
         new_post.setOnClickListener(new View.OnClickListener()
         {
@@ -63,7 +64,21 @@ public class PostsActivity extends AppCompatActivity
             @Override
             public void onChanged(List<Post> posts)
             {
-                recyclerView.setAdapter(new PostsAdapter(posts, getApplicationContext()));
+                //recyclerView.setAdapter(new PostsAdapter(posts, getApplicationContext()));
+            }
+        });
+    }
+
+    public void getPostsList8()
+    {
+        DatabaseManager databaseManager = new DatabaseManager();
+
+        databaseManager.getAllItems("posts", new OnDataGetListener()
+        {
+            @Override
+            public void setOnDataGetListener(List<DocumentSnapshot> documentSnapshotList)
+            {
+                recyclerView.setAdapter(new PostsAdapter(documentSnapshotList, getApplicationContext()));
             }
         });
     }
