@@ -13,13 +13,6 @@ import retrofit2.Response;
 
 public class CommentsRepository
 {
-    List<Comment> commentList;
-
-    public CommentsRepository(List<Comment> commentList)
-    {
-        this.commentList = commentList;
-    }
-
     public MutableLiveData<List<Comment>> getCommentsList(int postId)
     {
         MutableLiveData<List<Comment>> mutableLiveData = new MutableLiveData<>();

@@ -6,17 +6,10 @@ import java.util.List;
 
 public class CommentsViewModel
 {
-    List<Comment> commentList;
     CommentsRepository commentsRepository;
-
-    public CommentsViewModel(List<Comment> commentList)
-    {
-        this.commentList = commentList;
-    }
-
     public MutableLiveData<List<Comment>> getCommentsList(int postId)
     {
-        commentsRepository = new CommentsRepository(commentList);
+        commentsRepository = new CommentsRepository();
         return commentsRepository.getCommentsList(postId);
     }
 }

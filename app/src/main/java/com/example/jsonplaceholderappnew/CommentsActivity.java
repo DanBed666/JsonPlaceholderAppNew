@@ -23,9 +23,7 @@ public class CommentsActivity extends AppCompatActivity
 {
     RecyclerView recyclerView;
     CommentsViewModel commentsViewModel;
-    List<Comment> commentList = new ArrayList<>();
     int postId;
-    DatabaseManager dm = new DatabaseManager();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -41,7 +39,7 @@ public class CommentsActivity extends AppCompatActivity
             return insets;
         });
 
-        commentsViewModel = new CommentsViewModel(commentList);
+        commentsViewModel = new CommentsViewModel();
         recyclerView = findViewById(R.id.recyclerView);
         postId = getIntent().getIntExtra("ID_POSTA", 0);
 

@@ -23,11 +23,9 @@ import java.util.List;
 public class PostsActivity extends AppCompatActivity
 {
     RecyclerView recyclerView;
-    List<Post> posts = new ArrayList<>();
     List<Comment> commentList = new ArrayList<>();
     PostsViewModel postsViewModel;
     Button new_post;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
     DatabaseManager dm = new DatabaseManager();
     CommentsViewModel commentsViewModel = new CommentsViewModel(commentList);
 
