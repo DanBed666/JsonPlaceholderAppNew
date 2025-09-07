@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ public class CommentsActivity extends AppCompatActivity
     CommentsViewModel commentsViewModel;
     List<Comment> commentList = new ArrayList<>();
     int postId;
+    DatabaseManager dm = new DatabaseManager();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,25 +47,30 @@ public class CommentsActivity extends AppCompatActivity
 
         Log.i("POSTIDACTIVITY", String.valueOf(postId));
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        getCommentsList8(postId);
+        addCommentsToDb(postId);
+        getCommentsListFromDb(postId);
     }
 
-    public void getCommentsList(int postId)
+    public void addCommentsToDb(int postId)
     {
         commentsViewModel.getCommentsList(postId).observeForever(new Observer<List<Comment>>()
         {
             @Override
             public void onChanged(List<Comment> comments)
             {
-                //recyclerView.setAdapter(new CommentsAdapter(comments));
+                for (Comment c : comments)
+                {
+                    dm.addItem("comments", c.getId(), c);
+                }
             }
         });
     }
 
-    public void getCommentsList8(int postId)
+    public void getCommentsListFromDb(int postId)
     {
         DatabaseManager databaseManager = new DatabaseManager();
-        Query query = databaseManager.db.collection("comments").whereEqualTo("postId", postId);
+
+        Query query = db.collection("comments").whereEqualTo("postId", postId);
 
         databaseManager.getItemsWithQuery(query, new OnDataGetListener()
         {
