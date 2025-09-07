@@ -47,25 +47,8 @@ public class CommentsActivity extends AppCompatActivity
 
         Log.i("POSTIDACTIVITY", String.valueOf(postId));
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        addCommentsToDb(postId);
         getCommentsListFromDb(postId);
     }
-
-    public void addCommentsToDb(int postId)
-    {
-        commentsViewModel.getCommentsList(postId).observeForever(new Observer<List<Comment>>()
-        {
-            @Override
-            public void onChanged(List<Comment> comments)
-            {
-                for (Comment c : comments)
-                {
-                    dm.addItem("comments", c.getId(), c);
-                }
-            }
-        });
-    }
-
     public void getCommentsListFromDb(int postId)
     {
         DatabaseManager databaseManager = new DatabaseManager();

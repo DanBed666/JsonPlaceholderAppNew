@@ -24,10 +24,12 @@ public class PostsActivity extends AppCompatActivity
 {
     RecyclerView recyclerView;
     List<Post> posts = new ArrayList<>();
+    List<Comment> commentList = new ArrayList<>();
     PostsViewModel postsViewModel;
     Button new_post;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DatabaseManager dm = new DatabaseManager();
+    CommentsViewModel commentsViewModel = new CommentsViewModel(commentList);
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -69,6 +71,7 @@ public class PostsActivity extends AppCompatActivity
                 for (Post p : posts)
                 {
                     dm.addItem("posts", p.getId(), p);
+                    addCommentToDb(p.getId());
                 }
             }
         });
@@ -84,6 +87,21 @@ public class PostsActivity extends AppCompatActivity
             public void setOnDataGetListener(List<DocumentSnapshot> documentSnapshotList)
             {
                 recyclerView.setAdapter(new PostsAdapter(documentSnapshotList, getApplicationContext()));
+            }
+        });
+    }
+
+    public void addCommentToDb(int postId)
+    {
+        commentsViewModel.getCommentsList(postId).observeForever(new Observer<List<Comment>>()
+        {
+            @Override
+            public void onChanged(List<Comment> comments)
+            {
+                for (Comment c : comments)
+                {
+                    dm.addItem("comments", c.getId(), c);
+                }
             }
         });
     }
