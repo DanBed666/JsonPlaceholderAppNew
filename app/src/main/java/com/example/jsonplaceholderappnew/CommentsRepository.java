@@ -29,8 +29,7 @@ public class CommentsRepository
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response)
             {
-                commentList = response.body();
-                mutableLiveData.setValue(commentList);
+                mutableLiveData.setValue(response.body());
                 Log.i("INFO", "Pozyskano dane z repository comments");
             }
 

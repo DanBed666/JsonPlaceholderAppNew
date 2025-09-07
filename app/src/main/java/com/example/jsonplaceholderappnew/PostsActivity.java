@@ -27,6 +27,7 @@ public class PostsActivity extends AppCompatActivity
     PostsViewModel postsViewModel;
     Button new_post;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DatabaseManager dm = new DatabaseManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -46,7 +47,8 @@ public class PostsActivity extends AppCompatActivity
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        getPostsList8();
+        addPostsToDb();
+        getPostsListFromDb();
 
         new_post.setOnClickListener(new View.OnClickListener()
         {
@@ -57,19 +59,22 @@ public class PostsActivity extends AppCompatActivity
             }
         });
     }
-    public void getPostsList()
+    public void addPostsToDb()
     {
         postsViewModel.getPostsList().observeForever(new Observer<List<Post>>()
         {
             @Override
             public void onChanged(List<Post> posts)
             {
-                //recyclerView.setAdapter(new PostsAdapter(posts, getApplicationContext()));
+                for (Post p : posts)
+                {
+                    dm.addItem("posts", p.getId(), p);
+                }
             }
         });
     }
 
-    public void getPostsList8()
+    public void getPostsListFromDb()
     {
         DatabaseManager databaseManager = new DatabaseManager();
 

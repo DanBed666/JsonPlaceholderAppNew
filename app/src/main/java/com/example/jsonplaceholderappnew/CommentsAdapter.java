@@ -9,13 +9,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.DocumentSnapshot;
+
 import java.util.List;
+import java.util.Objects;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentsViewHolder>
 {
-    List<Comment> commentList;
+    List<DocumentSnapshot> commentList;
 
-    public CommentsAdapter(List<Comment> commentList)
+    public CommentsAdapter(List<DocumentSnapshot> commentList)
     {
         this.commentList = commentList;
     }
@@ -32,13 +35,13 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     @Override
     public void onBindViewHolder(@NonNull CommentsAdapter.CommentsViewHolder holder, int position)
     {
-        holder.email.setText(commentList.get(position).getEmail());
-        holder.title.setText(commentList.get(position).getName());
-        holder.body.setText(commentList.get(position).getBody());
+        holder.email.setText(commentList.get(position).getString("email"));
+        holder.title.setText(commentList.get(position).getString("name"));
+        holder.body.setText(commentList.get(position).getString("body"));
 
-        Log.i("EMAIL", commentList.get(position).getEmail());
-        Log.i("NAME", commentList.get(position).getName());
-        Log.i("BODY", commentList.get(position).getBody());
+        Log.i("EMAIL", Objects.requireNonNull(commentList.get(position).getString("email")));
+        Log.i("NAME", Objects.requireNonNull(commentList.get(position).getString("name")));
+        Log.i("BODY", Objects.requireNonNull(commentList.get(position).getString("body")));
     }
 
     @Override

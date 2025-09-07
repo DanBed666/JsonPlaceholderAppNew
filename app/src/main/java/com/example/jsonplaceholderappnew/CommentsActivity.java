@@ -12,6 +12,9 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +44,7 @@ public class CommentsActivity extends AppCompatActivity
 
         Log.i("POSTIDACTIVITY", String.valueOf(postId));
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        getCommentsList(postId);
+        getCommentsList8(postId);
     }
 
     public void getCommentsList(int postId)
@@ -51,7 +54,22 @@ public class CommentsActivity extends AppCompatActivity
             @Override
             public void onChanged(List<Comment> comments)
             {
-                recyclerView.setAdapter(new CommentsAdapter(comments));
+                //recyclerView.setAdapter(new CommentsAdapter(comments));
+            }
+        });
+    }
+
+    public void getCommentsList8(int postId)
+    {
+        DatabaseManager databaseManager = new DatabaseManager();
+        Query query = databaseManager.db.collection("comments").whereEqualTo("postId", postId);
+
+        databaseManager.getItemsWithQuery(query, new OnDataGetListener()
+        {
+            @Override
+            public void setOnDataGetListener(List<DocumentSnapshot> documentSnapshotList)
+            {
+                recyclerView.setAdapter(new CommentsAdapter(documentSnapshotList));
             }
         });
     }

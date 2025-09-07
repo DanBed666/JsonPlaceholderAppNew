@@ -26,8 +26,6 @@ import retrofit2.Response;
 
 public class PostsRepository
 {
-    DatabaseManager dm = new DatabaseManager();
-
     public MutableLiveData<List<Post>> getPostsList()
     {
         MutableLiveData<List<Post>> mutableLiveData = new MutableLiveData<>();
@@ -38,13 +36,6 @@ public class PostsRepository
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response)
             {
                 mutableLiveData.setValue(response.body());
-
-                assert response.body() != null;
-                for (Post p : response.body())
-                {
-                    dm.addItem(p);
-                }
-
                 Log.i("INFO", "Pozyskano dane z repository");
             }
 
