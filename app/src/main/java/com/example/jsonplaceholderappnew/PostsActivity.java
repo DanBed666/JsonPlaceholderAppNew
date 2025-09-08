@@ -27,7 +27,7 @@ public class PostsActivity extends AppCompatActivity
     PostsViewModel postsViewModel;
     Button new_post;
     DatabaseManager dm = new DatabaseManager();
-    CommentsViewModel commentsViewModel = new CommentsViewModel(commentList);
+    CommentsViewModel commentsViewModel = new CommentsViewModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

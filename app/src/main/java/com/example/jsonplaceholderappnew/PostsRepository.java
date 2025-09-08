@@ -26,6 +26,7 @@ import retrofit2.Response;
 
 public class PostsRepository
 {
+    DatabaseManager dm = new DatabaseManager();
     public MutableLiveData<List<Post>> getPostsList()
     {
         MutableLiveData<List<Post>> mutableLiveData = new MutableLiveData<>();
@@ -55,8 +56,13 @@ public class PostsRepository
             @Override
             public void onResponse(Call<Post> call, Response<Post> response)
             {
+                Post post = response.body();
                 Log.i("POSTT", String.valueOf(response.body().getTitle()));
                 Log.i("POSTB", String.valueOf(response.body().getBody()));
+                Log.i("NEWPOST", response.message());
+                Log.i("NEWPOST", String.valueOf(response.code()));
+                assert post != null;
+                dm.addItem("posts", post.getId(), post);
             }
 
             @Override

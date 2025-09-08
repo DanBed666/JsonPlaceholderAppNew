@@ -45,7 +45,7 @@ public class NewPostActivity extends AppCompatActivity
                 String t = title.getText().toString();
                 String b = body.getText().toString();
                 PostsViewModel postsViewModel = new PostsViewModel();
-                postsViewModel.createNewPost(new Post(11, 666, t, b));
+                postsViewModel.createNewPost(new Post(66, 666, t, b));
                 finish();
             }
         });

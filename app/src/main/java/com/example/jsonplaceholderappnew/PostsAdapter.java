@@ -88,7 +88,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
             @Override
             public void onChanged(User user)
             {
-                userTv.setText(user.getUsername());
+                if (user != null)
+                {
+                    userTv.setText(user.getUsername());
+                }
+                else
+                {
+                    userTv.setText("Guest");
+                }
             }
         });
     }
