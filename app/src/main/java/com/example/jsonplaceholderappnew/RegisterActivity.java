@@ -22,6 +22,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class RegisterActivity extends AppCompatActivity
 {
     EditText emailET;
@@ -40,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity
     EditText companyNameET;
     EditText catchphraseET;
     EditText bsET;
+    DatabaseManager dm = new DatabaseManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -123,6 +126,7 @@ public class RegisterActivity extends AppCompatActivity
         if (user != null)
         {
             startActivity(new Intent(this, LoginActivity.class));
+            addUser();
             user.sendEmailVerification();
             Toast.makeText(this,"Aby zakończyć rejestrację, potwierdź swój adres email",Toast.LENGTH_LONG).show();
         }
@@ -130,5 +134,32 @@ public class RegisterActivity extends AppCompatActivity
         {
             Toast.makeText(this,"You Didnt signed up",Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void addUser()
+    {
+        String email = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
+        String uId = mAuth.getCurrentUser().getUid();
+
+        String name = nameET.getText().toString();
+        String username = usernameET.getText().toString();
+
+        String street = streetET.getText().toString();
+        String houseNumber = houseNumET.getText().toString();
+        String postNumber = postNumET.getText().toString();
+        String city = cityET.getText().toString();
+        Address adres = new Address(street, houseNumber, city, postNumber, new Geo("0.0", "0.0"));
+
+        String phone = phoneET.getText().toString();
+        String website = websiteET.getText().toString();
+
+        String companyName = companyNameET.getText().toString();
+        String catchphrase = catchphraseET.getText().toString();
+        String bs = bsET.getText().toString();
+        Company company = new Company(companyName, catchphrase, bs);
+
+        User user = new User(11, name, username, email, adres, phone, website, company);
+
+        dm.addItem("users", 11, user);
     }
 }
