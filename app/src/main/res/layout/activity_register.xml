@@ -29,6 +29,72 @@
         android:hint="Hasło"
         android:inputType="textPassword"/>
 
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Imie i nazwisko" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nazwa uzytkownika" />
+
+    <EditText
+        android:id="@+id/street"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ulica" />
+
+    <EditText
+        android:id="@+id/house_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Numer domu" />
+
+    <EditText
+        android:id="@+id/post_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Kod pocztowy" />
+
+    <EditText
+        android:id="@+id/city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Miasto" />
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Telefon" />
+
+    <EditText
+        android:id="@+id/website"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Strona internetowa" />
+
+    <EditText
+        android:id="@+id/companyName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nazwa firmy" />
+
+    <EditText
+        android:id="@+id/catchphrase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Słowa kluczowe" />
+
+    <EditText
+        android:id="@+id/bs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Opis firmy" />
+
     <Button
         android:id="@+id/signUpBtn"
         android:layout_width="match_parent"

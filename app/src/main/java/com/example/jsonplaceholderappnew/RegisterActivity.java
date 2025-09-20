@@ -29,6 +29,17 @@ public class RegisterActivity extends AppCompatActivity
     Button register;
     TextView login;
     private FirebaseAuth mAuth;
+    EditText nameET;
+    EditText usernameET;
+    EditText streetET;
+    EditText houseNumET;
+    EditText postNumET;
+    EditText cityET;
+    EditText phoneET;
+    EditText websiteET;
+    EditText companyNameET;
+    EditText catchphraseET;
+    EditText bsET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,6 +58,18 @@ public class RegisterActivity extends AppCompatActivity
         register = findViewById(R.id.signUpBtn);
         login = findViewById(R.id.tv_login_btn);
         mAuth = FirebaseAuth.getInstance();
+
+        nameET = findViewById(R.id.name);
+        usernameET = findViewById(R.id.username);
+        streetET = findViewById(R.id.street);
+        houseNumET = findViewById(R.id.house_num);
+        postNumET = findViewById(R.id.post_num);
+        cityET = findViewById(R.id.city);
+        phoneET = findViewById(R.id.phone);
+        websiteET = findViewById(R.id.website);
+        companyNameET = findViewById(R.id.companyName);
+        catchphraseET = findViewById(R.id.catchphrase);
+        bsET = findViewById(R.id.bs);
 
         register.setOnClickListener(new View.OnClickListener()
         {
