@@ -33,15 +33,7 @@ public class RegisterActivity extends AppCompatActivity
     private FirebaseAuth mAuth;
     EditText nameET;
     EditText usernameET;
-    EditText streetET;
-    EditText houseNumET;
-    EditText postNumET;
     EditText cityET;
-    EditText phoneET;
-    EditText websiteET;
-    EditText companyNameET;
-    EditText catchphraseET;
-    EditText bsET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -63,15 +55,7 @@ public class RegisterActivity extends AppCompatActivity
 
         nameET = findViewById(R.id.name);
         usernameET = findViewById(R.id.username);
-        streetET = findViewById(R.id.street);
-        houseNumET = findViewById(R.id.house_num);
-        postNumET = findViewById(R.id.post_num);
         cityET = findViewById(R.id.city);
-        phoneET = findViewById(R.id.phone);
-        websiteET = findViewById(R.id.website);
-        companyNameET = findViewById(R.id.companyName);
-        catchphraseET = findViewById(R.id.catchphrase);
-        bsET = findViewById(R.id.bs);
 
         register.setOnClickListener(new View.OnClickListener()
         {
@@ -142,24 +126,11 @@ public class RegisterActivity extends AppCompatActivity
 
         String name = nameET.getText().toString();
         String username = usernameET.getText().toString();
-
-        String street = streetET.getText().toString();
-        String houseNumber = houseNumET.getText().toString();
-        String postNumber = postNumET.getText().toString();
         String city = cityET.getText().toString();
-        Address adres = new Address(street, houseNumber, city, postNumber, new Geo("0.0", "0.0"));
 
-        String phone = phoneET.getText().toString();
-        String website = websiteET.getText().toString();
+        UserDB user = new UserDB(uId, name, username, email, city);
 
-        String companyName = companyNameET.getText().toString();
-        String catchphrase = catchphraseET.getText().toString();
-        String bs = bsET.getText().toString();
-        Company company = new Company(companyName, catchphrase, bs);
-
-        User user = new User(66, name, username, email, adres, phone, website, company);
-
-        UserViewModel userViewModel = new UserViewModel();
-        userViewModel.createNewUser(user);
+        //UserViewModel userViewModel = new UserViewModel();
+        //userViewModel.createNewUser(user);
     }
 }

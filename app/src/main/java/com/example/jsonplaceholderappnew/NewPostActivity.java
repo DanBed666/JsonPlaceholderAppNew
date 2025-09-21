@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class NewPostActivity extends AppCompatActivity
 {
@@ -42,10 +43,20 @@ public class NewPostActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                Random r = new Random();
+
                 String t = title.getText().toString();
                 String b = body.getText().toString();
-                PostsViewModel postsViewModel = new PostsViewModel();
-                postsViewModel.createNewPost(new Post(66, 666, t, b));
+                //PostsViewModel postsViewModel = new PostsViewModel();
+                //postsViewModel.createNewPost(new Post(r.nextInt(100) + 101, r.nextInt(100) + 101, t, b));
+
+                int id = r.nextInt(100) + 101;
+
+                Post post  = new Post(r.nextInt(100) + 101, id, t, b);
+
+                DatabaseManager dm = new DatabaseManager();
+                dm.addItem("posts", id, post);
+
                 finish();
             }
         });

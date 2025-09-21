@@ -59,6 +59,7 @@ public class PostsRepository
                 Post post = response.body();
                 Log.i("POSTT", String.valueOf(response.body().getTitle()));
                 Log.i("POSTB", String.valueOf(response.body().getBody()));
+                Log.i("POSTC", String.valueOf(response.body().getId()));
                 Log.i("NEWPOST", response.message());
                 Log.i("NEWPOST", String.valueOf(response.code()));
                 assert post != null;
