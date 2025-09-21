@@ -42,7 +42,6 @@ public class RegisterActivity extends AppCompatActivity
     EditText companyNameET;
     EditText catchphraseET;
     EditText bsET;
-    DatabaseManager dm = new DatabaseManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -158,8 +157,9 @@ public class RegisterActivity extends AppCompatActivity
         String bs = bsET.getText().toString();
         Company company = new Company(companyName, catchphrase, bs);
 
-        User user = new User(11, name, username, email, adres, phone, website, company);
+        User user = new User(66, name, username, email, adres, phone, website, company);
 
-        dm.addItem("users", 11, user);
+        UserViewModel userViewModel = new UserViewModel();
+        userViewModel.createNewUser(user);
     }
 }

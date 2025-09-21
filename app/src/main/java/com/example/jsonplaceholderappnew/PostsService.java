@@ -17,6 +17,9 @@ public interface PostsService
     @POST("posts")
     Call<Post> createNewPost(@Body Post post);
 
+    @POST("users")
+    Call<User> createNewUser(@Body User user);
+
     @GET("posts/{postId}/comments")
     Call<List<Comment>> getCommentsList(@Path("postId") int postId);
 

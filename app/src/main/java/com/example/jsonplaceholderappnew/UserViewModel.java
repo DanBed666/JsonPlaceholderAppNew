@@ -8,9 +8,18 @@ public class UserViewModel
 {
     UserRepository userRepository;
 
-    public MutableLiveData<User> getUser(int userID)
+    public UserViewModel()
     {
         userRepository = new UserRepository();
+    }
+
+    public MutableLiveData<User> getUser(int userID)
+    {
         return userRepository.getUser(userID);
+    }
+
+    public void createNewUser(User user)
+    {
+        userRepository.createNewUser(user);
     }
 }

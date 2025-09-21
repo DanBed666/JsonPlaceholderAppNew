@@ -7,15 +7,19 @@ import java.util.List;
 public class PostsViewModel
 {
     PostsRepository postsRepository;
-    public MutableLiveData<List<Post>> getPostsList()
+
+    public PostsViewModel()
     {
         postsRepository = new PostsRepository();
+    }
+
+    public MutableLiveData<List<Post>> getPostsList()
+    {
         return postsRepository.getPostsList();
     }
 
     public void createNewPost(Post post)
     {
-        postsRepository = new PostsRepository();
         postsRepository.createNewPost(post);
     }
 }
