@@ -11,6 +11,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -20,6 +23,7 @@ public class NewPostActivity extends AppCompatActivity
     EditText title;
     EditText body;
     Button publish;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,12 +54,18 @@ public class NewPostActivity extends AppCompatActivity
                 //PostsViewModel postsViewModel = new PostsViewModel();
                 //postsViewModel.createNewPost(new Post(r.nextInt(100) + 101, r.nextInt(100) + 101, t, b));
 
-                int id = r.nextInt(100) + 101;
+                String userId = user.getUid();
+                StringBuilder id = new StringBuilder();
 
-                Post post  = new Post(r.nextInt(100) + 101, id, t, b);
+                for (int i = 0; i < 10; i++)
+                {
+                    id.append((char) (r.nextInt(26) + 97));
+                }
+
+                PostDB post  = new PostDB(userId, id.toString(), t, b);
 
                 DatabaseManager dm = new DatabaseManager();
-                dm.addItem("posts", id, post);
+                dm.addItem("posts", id.toString(), post);
 
                 finish();
             }

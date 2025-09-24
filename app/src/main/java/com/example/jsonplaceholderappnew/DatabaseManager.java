@@ -37,6 +37,27 @@ public class DatabaseManager
                 });
     }
 
+    public void addItem(String collectionName, String id, Object obj)
+    {
+        db.collection(collectionName).document(id).set(obj)
+                .addOnSuccessListener(new OnSuccessListener<Void>()
+                {
+                    @Override
+                    public void onSuccess(Void unused)
+                    {
+                        Log.d("FIREBASE", "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener()
+                {
+                    @Override
+                    public void onFailure(@NonNull Exception e)
+                    {
+                        Log.e("FIREBASE", "Error writing document: " + e.getMessage(), e);
+                    }
+                });
+    }
+
     public void getItemsWithQuery(Query query, OnDataGetListener onDataGetListener)
     {
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()

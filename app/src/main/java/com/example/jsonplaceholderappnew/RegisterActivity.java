@@ -130,6 +130,9 @@ public class RegisterActivity extends AppCompatActivity
 
         UserDB user = new UserDB(uId, name, username, email, city);
 
+        DatabaseManager dm = new DatabaseManager();
+        dm.addItem("users", uId, user);
+
         //UserViewModel userViewModel = new UserViewModel();
         //userViewModel.createNewUser(user);
     }
