@@ -14,15 +14,25 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
+import java.util.List;
 
 public class UserSettingsActivity extends AppCompatActivity
 {
     TextView email;
+    TextView name;
+    TextView username;
+    TextView city;
     Button info;
     Button email_btn;
     Button password;
-    FirebaseUser user;
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = mAuth.getCurrentUser();
+    DatabaseManager dm = new DatabaseManager();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,13 +48,24 @@ public class UserSettingsActivity extends AppCompatActivity
         });
 
         email = findViewById(R.id.email);
+        name = findViewById(R.id.name);
+        username = findViewById(R.id.username);
+        city = findViewById(R.id.city);
         info = findViewById(R.id.btn_info_change);
         email_btn = findViewById(R.id.btn_email_change);
         password = findViewById(R.id.btn_password_change);
 
-        user = mAuth.getCurrentUser();
         assert user != null;
         email.setText(user.getEmail());
+
+        info.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(new Intent(getApplicationContext(), UserInfoChangeActivity.class));
+            }
+        });
 
         email_btn.setOnClickListener(new View.OnClickListener()
         {
@@ -61,6 +82,24 @@ public class UserSettingsActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 startActivity(new Intent(getApplicationContext(), ChangePasswordActivity.class));
+            }
+        });
+
+        getUserData();
+    }
+
+    public void getUserData()
+    {
+        Query query = db.collection("users").whereEqualTo("id", user.getUid());
+
+        dm.getItemsWithQuery(query, new OnDataGetListener()
+        {
+            @Override
+            public void setOnDataGetListener(List<DocumentSnapshot> documentSnapshotList)
+            {
+                name.setText(documentSnapshotList.get(0).getString("name"));
+                username.setText(documentSnapshotList.get(0).getString("username"));
+                city.setText(documentSnapshotList.get(0).getString("city"));
             }
         });
     }
