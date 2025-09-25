@@ -13,6 +13,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Map;
+
 public class DatabaseManager
 {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -56,6 +58,25 @@ public class DatabaseManager
                         Log.e("FIREBASE", "Error writing document: " + e.getMessage(), e);
                     }
                 });
+    }
+
+    public void updateItem(String collectionName, String id, Map<String, Object> data)
+    {
+        db.collection(collectionName).document(id).update(data).addOnCompleteListener(new OnCompleteListener<Void>()
+        {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                if (task.isSuccessful())
+                {
+                    Log.d("FIREBASE", "DocumentSnapshot successfully updated!");
+                }
+                else
+                {
+                    Log.d("UPDATE", "Error updating document: ", task.getException());
+                }
+            }
+        });
     }
 
     public void getItemsWithQuery(Query query, OnDataGetListener onDataGetListener)
