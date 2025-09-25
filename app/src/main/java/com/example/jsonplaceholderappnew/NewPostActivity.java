@@ -1,5 +1,7 @@
 package com.example.jsonplaceholderappnew;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -67,6 +69,8 @@ public class NewPostActivity extends AppCompatActivity
                 DatabaseManager dm = new DatabaseManager();
                 dm.addItem("posts", id.toString(), post);
 
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }
         });

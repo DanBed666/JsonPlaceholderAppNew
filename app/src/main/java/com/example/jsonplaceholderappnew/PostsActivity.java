@@ -6,6 +6,10 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -30,6 +34,7 @@ public class PostsActivity extends AppCompatActivity
     DatabaseManager dm = new DatabaseManager();
     CommentsViewModel commentsViewModel = new CommentsViewModel();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ActivityResultLauncher<Intent> someActivityResultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,9 +62,12 @@ public class PostsActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                startActivity(new Intent(getApplicationContext(), NewPostActivity.class));
+                Intent intent = new Intent(getApplicationContext(), NewPostActivity.class);
+                someActivityResultLauncher.launch(intent);
             }
         });
+
+        getResultFromActivity();
     }
     public void addPostsToDb()
     {
@@ -104,5 +112,26 @@ public class PostsActivity extends AppCompatActivity
                 }
             }
         });
+    }
+
+    public void refresh()
+    {
+        this.recreate();
+    }
+
+    public void getResultFromActivity()
+    {
+        someActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>()
+                {
+                    @Override
+                    public void onActivityResult(ActivityResult result)
+                    {
+                        if (result.getResultCode() == NewPostActivity.RESULT_OK)
+                        {
+                            refresh();
+                        }
+                    }
+                });
     }
 }

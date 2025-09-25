@@ -1,5 +1,7 @@
 package com.example.jsonplaceholderappnew;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -59,6 +61,8 @@ public class UserInfoChangeActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 updateInfo();
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }
         });

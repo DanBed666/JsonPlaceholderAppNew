@@ -1,12 +1,18 @@
 package com.example.jsonplaceholderappnew;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -33,6 +39,7 @@ public class UserSettingsActivity extends AppCompatActivity
     FirebaseUser user = mAuth.getCurrentUser();
     DatabaseManager dm = new DatabaseManager();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ActivityResultLauncher<Intent> someActivityResultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -63,7 +70,8 @@ public class UserSettingsActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                startActivity(new Intent(getApplicationContext(), UserInfoChangeActivity.class));
+                Intent intent = new Intent(getApplicationContext(), UserInfoChangeActivity.class);
+                someActivityResultLauncher.launch(intent);
             }
         });
 
@@ -86,6 +94,7 @@ public class UserSettingsActivity extends AppCompatActivity
         });
 
         getUserData();
+        getResultFromActivity();
     }
 
     public void getUserData()
@@ -102,5 +111,26 @@ public class UserSettingsActivity extends AppCompatActivity
                 city.setText(documentSnapshotList.get(0).getString("city"));
             }
         });
+    }
+
+    public void refresh()
+    {
+        this.recreate();
+    }
+
+    public void getResultFromActivity()
+    {
+        someActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>()
+                {
+                    @Override
+                    public void onActivityResult(ActivityResult result)
+                    {
+                        if (result.getResultCode() == UserInfoChangeActivity.RESULT_OK)
+                        {
+                            refresh();
+                        }
+                    }
+                });
     }
 }
