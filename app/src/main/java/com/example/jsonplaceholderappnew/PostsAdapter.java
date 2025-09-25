@@ -15,6 +15,8 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
     List<DocumentSnapshot> posts = new ArrayList<>();
     Context context;
     UserViewModel userViewModel;
+    DatabaseManager dm = new DatabaseManager();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public PostsAdapter(List<DocumentSnapshot> posts, Context c)
     {
@@ -43,7 +47,24 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
     @Override
     public void onBindViewHolder(@NonNull PostsAdapter.PostsViewHolder holder, @SuppressLint("RecyclerView") int position)
     {
-        getUser(Objects.requireNonNull(posts.get(position).getLong("userId")).intValue(), holder.user);
+        if (posts.get(position).get("userId") instanceof Long)
+        {
+            getUser(Objects.requireNonNull(posts.get(position).getLong("userId")).intValue(), holder.user);
+        }
+        else
+        {
+            String userId = posts.get(position).getString("userId");
+            Query query = db.collection("users").whereEqualTo("id", userId);
+            dm.getItemsWithQuery(query, new OnDataGetListener()
+            {
+                @Override
+                public void setOnDataGetListener(List<DocumentSnapshot> documentSnapshotList)
+                {
+                    holder.user.setText(documentSnapshotList.get(0).getString("username"));
+                }
+            });
+        }
+
         holder.title.setText(posts.get(position).getString("title"));
         holder.body.setText(posts.get(position).getString("body"));
 

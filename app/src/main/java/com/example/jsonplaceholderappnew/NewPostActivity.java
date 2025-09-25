@@ -62,7 +62,7 @@ public class NewPostActivity extends AppCompatActivity
                     id.append((char) (r.nextInt(26) + 97));
                 }
 
-                PostDB post  = new PostDB(userId, id.toString(), t, b);
+                PostDB post  = new PostDB(id.toString(), userId, t, b);
 
                 DatabaseManager dm = new DatabaseManager();
                 dm.addItem("posts", id.toString(), post);
